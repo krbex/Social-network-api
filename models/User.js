@@ -1,4 +1,4 @@
-const { Schema, Types, default: mongoose } = require("mongoose");
+const { Schema, model, Types } = require("mongoose");
 
 const userSchema = new Schema(
   {
@@ -9,7 +9,10 @@ const userSchema = new Schema(
     },
     email: {
       type: String,
-      match: [/.+@.+\..+/, "Please provide a valid email address"],
+      match: [
+        /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/,
+        "Please provide a valid email address",
+      ],
       required: true,
       unique: true,
     },
@@ -23,10 +26,10 @@ const userSchema = new Schema(
   { toJSON: { getters: true, virtuals: true } }
 );
 
-const User = db.model("User", userSchema);
-
 userSchema.virtual("friendCount").get(function () {
   return this.friends.length;
 });
+
+const User = model("user", userSchema);
 
 module.exports = User;

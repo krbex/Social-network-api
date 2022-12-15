@@ -74,7 +74,7 @@ const names = [
   "Parker",
 ];
 
-const appDescriptions = [
+const thoughtDescriptions = [
   "Decision Tracker",
   "Find My Phone",
   "Learn Piano",
